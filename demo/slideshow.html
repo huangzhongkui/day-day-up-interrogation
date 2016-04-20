@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>slideshow</title>
+    <style type="text/css" media="screen">
+      ul, li {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .slideshow {
+        width: 480px;
+        height: 320px;
+        border: 6px solid #eee;
+        margin: 0 auto;
+        background: #eee;
+        overflow: hidden;
+      }
+      .slides-list {
+        height: 100%;
+        transition: all 1s linear;
+      }
+      .slides-list li {
+        float: left;
+        height: 100%;
+      }
+      .slides-list img { 
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slideshow">
+      <ul class="slides-list">
+        <li><img src="https://snap-photos.s3.amazonaws.com/img-thumbs/960w/PTZY04GKFN.jpg" alt="1"></li>
+        <li><img src="https://snap-photos.s3.amazonaws.com/img-thumbs/960w/272QMLIJRM.jpg" alt="2"></li>
+        <li><img src="https://snap-photos.s3.amazonaws.com/img-thumbs/960w/T7AVUVCYR0.jpg" alt="3"></li>
+        <li><img src="https://snap-photos.s3.amazonaws.com/img-thumbs/960w/LL3JPQ0T82.jpg" alt="4"></li>
+      </ul>
+    </div>
+
+    <script type="text/javascript">
+
+      var Slide = function (){
+        var $ = document.querySelectorAll.bind(document);
+
+        var Slide = {
+          init: function (){
+            var listLength = $('.slides-list li').length;
+
+            $('.slides-list')[0].style.width = listLength * 100 + '%';
+            this.activate(listLength);
+          },
+          activate: function (listLength) {
+            var slideElement = $('.slides-list')[0];
+            var currentIndex = 0;
+
+            (function step (){
+              setTimeout(function (){
+                if (currentIndex < listLength) {
+                  currentIndex = ++currentIndex === listLength ? 0 : currentIndex;
+                  slideElement.style.marginLeft = -currentIndex * 100 + '%';
+                } 
+                step();
+              }, 2000);
+            })()
+          },
+        }
+
+        return Slide;
+      }()
+
+      Slide.init();
+    </script>
+  </body>
+</html>
