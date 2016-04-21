@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>quicksort</title>
+    <style type="text/css" media="all">
+      * {
+        padding: 0;
+        margin: 0;
+        font-size: 20px;
+      }
+      div {
+        width: 500px;
+        margin: 50px auto;
+      }
+      input {
+        display: inline-block;
+        width: 70%;
+        padding: 10px 8px;
+      }
+      button {
+        display: inline-block;
+        width: 25%;
+        height: 47px;
+        float: right;
+      }
+      p {
+         margin-top: 10px;
+         word-wrap: break-word;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <input id="input-number" type="text" name="number" />
+      <button id="sort">Sort</button>
+      <p id="display-result"></p>
+    </div>
+
+    <script type="text/javascript">
+      var inputNum = document.getElementById('input-number');
+      var sortButton = document.getElementById('sort');
+      var displayResult = document.getElementById('display-result');
+
+      function quickSort(arr) {
+        if (arr.length <= 1) return arr;
+
+        var centerNum = +arr.splice(Math.floor(arr.length / 2), 1); // String to Number.
+        var leftArr  = [];
+        var rightArr = [];
+
+        arr.forEach(function(num) {
+          if (+num < centerNum) { // Number compare
+            leftArr.push(num);
+          } else {
+            rightArr.push(num);
+          }
+        });
+
+        var resultArr = quickSort(leftArr).concat(centerNum, quickSort(rightArr));
+        return resultArr.join(',').split(',');
+      }
+      
+      function sort() {
+        var inputArr = inputNum.value.split(','); // This array's value which type is String, not Number.
+        var result = quickSort(inputArr);
+        displayResult.innerHTML = 'Result: ' + result;
+      }
+
+      sortButton.addEventListener('click', sort, false);
+    </script>
+  </body>
+</html>
