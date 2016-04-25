@@ -58,7 +58,8 @@
         });
 
         var resultArr = quickSort(leftArr).concat(centerNum, quickSort(rightArr));
-        return resultArr.join(',').split(',');
+        // idiot: return resultArr.join(',').split(',');
+        return [].concat.apply([], resultArr); // sofish js-learn
       }
       
       function sort() {
